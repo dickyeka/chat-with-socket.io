@@ -2,9 +2,12 @@
 example chat real time with  socket.io
 
 
-1.clone repo:
+clone repo:
 ``` sh
-$ git clone https://github.com/pubnub/php.git ./pubnub-php
+$ npm install
 ```
-2. 
+instal npm:
+``` sh
+$ npm install
+```
 
