@@ -10,4 +10,7 @@ instal npm:
 ``` sh
 $ npm install
 ```
-
+active server:
+``` sh
+$ node  chat.js
+```
