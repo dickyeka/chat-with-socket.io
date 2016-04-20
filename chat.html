@@ -11,24 +11,43 @@
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+      .init{position: relative;top: 0;}
     </style>
   </head>
   <body>
+    <form class="init">
+      <input id="batch"  autocomplete="off"  placeholder="batch_id" />
+      <input id="name" autocomplete="off"  placeholder="name"/>
+      <input id="id" autocomplete="off" placeholder="id_user" />
+      <button>Simpan</button>
+    </form>
     <ul id="messages"></ul>
-    <form action="">
+    <form action="" id="chat">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
-      $('form').submit(function(){
+
+       $('.init').submit(function(){
+          var $batch=$('#batch').val();
+          var $name=$('#name').val();
+          var $id=$('#id').val();
+          $('.init').css("display", "none");
+          socket.emit('adduser',{ batch:$batch,name:$name,id:$id});
+          return false;
+
+       });
+
+      $('#chat').submit(function(){
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
         return false;
       });
-      socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg));
+      socket.on('chat message', function(data){
+
+        $('#messages').append($('<li>').text(data.nick+":"+data.msg));
       });
     </script>
   </body>
